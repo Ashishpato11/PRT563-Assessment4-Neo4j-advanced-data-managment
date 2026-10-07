@@ -1,0 +1,19 @@
+tenant,phone,property,owner,agent,unpaidPayments,amountOwed,daysUnpaid
+Jack Taylor,0401000041,116 Victoria Rd,Emily Carter,null,2,4180.0,55
+Isla King,0401000027,150 Park Rd,Metro Urban Property Group,Ethan Chen,2,1820.0,236
+Jack Thapa,0401000009,2/43 Wharf Rd,Fatima Hassan,Ethan Chen,1,1580.0,24
+Thomas Brown,0401000050,26/85 Crown St,Michael Thompson,Ava Singh,1,1550.0,24
+Oliver Clarke,0401000008,85 Bridge Rd,Blue Sky Realty,Mia Robinson,1,1470.0,24
+Zoe Rai,0401000021,123 Elizabeth St,Southern Cross Holdings,Liam Brown,2,1460.0,55
+Kevin Brown,0401000049,107 Grey St,Rajesh Gupta,Liam Brown,1,1310.0,24
+Tran Gurung,0401000048,94 Park Rd,Sarah Nguyen,Mia Robinson,1,1190.0,55
+Min Zhang,0401000004,9 Bay Ave,Sunrise Properties,Liam Brown,1,900.0,147
+Sujan Gurung,0401000007,59 Crown St,James Patel,Noah Johnson,1,760.0,86
+Zoe Hall,0401000018,177 King St,Sunrise Properties,Emma Wilson,1,760.0,24
+Hannah Walker,0401000044,113 Church St,Daniel Kim,Ava Singh,2,720.0,55
+Oliver Rossi,0401000045,135 Ocean St,Harbourview Investments,Olivia Martinez,1,700.0,24
+Mia Murphy,0401000020,60 Queen St,Harbourview Investments,Ava Singh,1,700.0,55
+Ryan Martin,0401000010,121 Darling St,Metro Urban Property Group,null,1,500.0,24
+Ruby Smith,0401000014,94 River Tce,Harbourview Investments,Ava Singh,1,500.0,24
+Adarsha Luitel,0401000006,77 Smith St,Sarah Nguyen,Olivia Martinez,1,480.0,55
+Olivia Clarke,0401000028,164 Park Rd,Coastal Living Pty Ltd,Jack Kelly,1,380.0,24

@@ -1,0 +1,6 @@
+p.propertyId,p.address,suburb,state,p.bedrooms,p.bathrooms,features
+PROP017,61 Darling St,Bondi Beach,NSW,3,2,"[Balcony, Pet Friendly, Built-in Wardrobes, Ocean View, Fibre Internet]"
+PROP003,88 Glebe Point Rd,Glebe,NSW,3,2,"[Swimming Pool, Furnished, Built-in Wardrobes, Secure Entry, Fibre Internet]"
+PROP034,17/54 Bay St,Newtown,NSW,2,1,"[Swimming Pool, Built-in Wardrobes, Near Train Station, Fibre Internet]"
+PROP006,77 Smith St,Fitzroy,VIC,2,1,"[Off-street Parking, Furnished, Dishwasher, Built-in Wardrobes, Near Train Station, Secure Entry]"
+PROP025,135 Market St,Richmond,VIC,3,2,"[Off-street Parking, Furnished, Dishwasher]"
