@@ -1,0 +1,41 @@
+PropertyID,Address,Suburb,State,Postcode,PropertyType,SizeM2,Bedrooms,Bathrooms,Status,OwnerID,AgentID
+PROP001,22 Rose St,Surry Hills,NSW,2010,residential,85.00,2,1,leased,OWN001,AG001
+PROP002,5/10 Kent St,Sydney CBD,NSW,2000,commercial,200.00,,,leased,OWN002,AG001
+PROP003,88 Glebe Point Rd,Glebe,NSW,2037,residential,120.00,3,2,available,OWN001,AG002
+PROP004,14 Collins St,Melbourne CBD,VIC,3000,commercial,350.00,,,under_maintenance,OWN004,AG003
+PROP005,3 Beachside Blvd,Gold Coast,QLD,4217,residential,150.00,4,2,leased,OWN005,AG004
+PROP006,77 Smith St,Fitzroy,VIC,3065,residential,95.00,2,1,available,OWN003,AG003
+PROP007,9 Bay Ave,Bondi Beach,NSW,2026,residential,110.00,3,2,leased,OWN002,AG002
+PROP008,26/85 Crown St,Sydney CBD,NSW,2000,commercial,190.94,,,leased,OWN001,AG005
+PROP009,102 Church St,Sydney CBD,NSW,2000,residential,95.26,2,1,leased,OWN002,AG006
+PROP010,177 King St,Sydney CBD,NSW,2000,residential,112.60,2,1,leased,OWN002,AG001
+PROP011,94 Park Rd,Docklands,VIC,3008,commercial,188.71,,,leased,OWN003,AG007
+PROP012,85 Bridge Rd,Docklands,VIC,3008,commercial,232.82,,,leased,OWN004,AG007
+PROP013,139 Church St,Melbourne CBD,VIC,3000,commercial,417.45,,,leased,OWN004,AG003
+PROP014,59 Crown St,Fortitude Valley,QLD,4006,residential,169.62,4,2,leased,OWN005,AG004
+PROP015,94 River Tce,Surry Hills,NSW,2010,residential,80.93,1,1,leased,OWN006,AG005
+PROP016,135 Ocean St,Richmond,VIC,3121,residential,134.54,3,2,leased,OWN006,AG003
+PROP017,61 Darling St,Bondi Beach,NSW,2026,residential,133.03,3,2,available,OWN006,AG001
+PROP018,60 Queen St,Pyrmont,NSW,2009,residential,98.92,2,1,leased,OWN006,AG005
+PROP019,25 Station St,Surry Hills,NSW,2010,residential,123.65,2,1,leased,OWN007,AG005
+PROP020,113 Church St,Hurstville,NSW,2220,residential,86.73,1,1,leased,OWN007,AG005
+PROP021,148 Queen St,Docklands,VIC,3008,commercial,160.57,,,available,OWN008,AG007
+PROP022,116 Victoria Rd,Melbourne CBD,VIC,3000,commercial,317.35,,,leased,OWN008,
+PROP023,12/96 Albert St,St Kilda,VIC,3182,residential,123.50,3,2,leased,OWN009,AG003
+PROP024,163 High St,St Kilda,VIC,3182,residential,109.88,2,1,leased,OWN009,AG003
+PROP025,135 Market St,Richmond,VIC,3121,residential,133.62,3,2,available,OWN009,AG003
+PROP026,123 Elizabeth St,Manly,NSW,2095,residential,114.68,2,1,leased,OWN009,AG002
+PROP027,4/85 Queen St,Chatswood,NSW,2067,residential,147.59,3,2,leased,OWN010,AG006
+PROP028,107 Grey St,Sydney CBD,NSW,2000,commercial,161.44,,,leased,OWN010,AG002
+PROP029,148 Wharf Rd,Brisbane City,QLD,4000,residential,81.27,1,1,leased,OWN011,AG004
+PROP030,163 Darling St,South Brisbane,QLD,4101,residential,125.41,3,2,leased,OWN011,AG008
+PROP031,164 Park Rd,Fortitude Valley,QLD,4006,residential,84.30,1,1,leased,OWN011,AG008
+PROP032,24/58 George St,Gold Coast,QLD,4217,residential,90.74,1,1,leased,OWN012,AG004
+PROP033,27 Church St,South Brisbane,QLD,4101,residential,80.78,1,1,leased,OWN012,AG008
+PROP034,17/54 Bay St,Newtown,NSW,2042,residential,111.73,2,1,available,OWN013,
+PROP035,121 Darling St,Fortitude Valley,QLD,4006,residential,102.79,2,1,leased,OWN013,
+PROP036,150 Park Rd,Bondi Beach,NSW,2026,residential,126.90,3,2,leased,OWN013,AG006
+PROP037,102 Station St,Docklands,VIC,3008,commercial,307.12,,,available,OWN013,AG003
+PROP038,15/63 Ocean St,St Kilda,VIC,3182,residential,141.70,3,2,under_maintenance,OWN014,AG007
+PROP039,8 Railway Pde,Chatswood,NSW,2067,commercial,238.72,,,available,OWN015,AG002
+PROP040,2/43 Wharf Rd,Sydney CBD,NSW,2000,commercial,195.50,,,leased,OWN015,AG006

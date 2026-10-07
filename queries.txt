@@ -1,0 +1,71 @@
+// PRT563 Assessment 4 - Sydney Group 6
+// Task 3: Four Cypher queries (from simple to complex)
+// Run each query one at a time in Neo4j Browser after running import.txt.
+// We use the date 2026-10-01 as "today" so the results stay the same.
+
+
+// Query 1 (simple)
+// A family wants to rent a home with 2 or more bedrooms.
+// Show all available residential properties with their suburb and features.
+MATCH (p:Property)-[:LOCATED_IN]->(s:Suburb)
+WHERE p.status = 'available' AND p.propertyType = 'residential' AND p.bedrooms >= 2
+OPTIONAL MATCH (p)-[:HAS_FEATURE]->(f:Feature)
+RETURN p.propertyId, p.address, s.name AS suburb, s.state AS state,
+       p.bedrooms, p.bathrooms, collect(f.name) AS features
+ORDER BY state, suburb;
+
+
+// Query 2 (medium)
+// The manager wants a summary for each agent: how many properties they manage,
+// how many have an active lease, and the total weekly rent.
+MATCH (a:Agent)-[:MANAGES]->(p:Property)
+OPTIONAL MATCH (p)<-[:FOR_PROPERTY]-(l:Lease {status: 'active'})
+RETURN a.firstName + ' ' + a.lastName AS agent,
+       count(DISTINCT p) AS properties,
+       count(l) AS activeLeases,
+       sum(l.weeklyRent) AS totalWeeklyRent
+ORDER BY totalWeeklyRent DESC;
+
+
+// Query 3 (harder)
+// The accounts team needs a list of active leases that have overdue or pending
+// payments, with the tenant, property, owner and agent, the total amount owed
+// and how many days the oldest payment has been unpaid.
+MATCH (t:Tenant)-[:SIGNED]->(l:Lease {status: 'active'})-[:HAS_PAYMENT]->(pay:Payment)
+WHERE pay.status IN ['overdue', 'pending']
+MATCH (l)-[:FOR_PROPERTY]->(p:Property)<-[:OWNS]-(o:Owner)
+OPTIONAL MATCH (a:Agent)-[:MANAGES]->(p)
+RETURN t.firstName + ' ' + t.lastName AS tenant,
+       t.phone AS phone,
+       p.address AS property,
+       o.name AS owner,
+       a.firstName + ' ' + a.lastName AS agent,
+       count(pay) AS unpaidPayments,
+       sum(pay.amount) AS amountOwed,
+       duration.inDays(min(pay.paymentDate), date('2026-10-01')).days AS daysUnpaid
+ORDER BY amountOwed DESC;
+
+
+// Query 4 (complex)
+// To keep tenants, the agency contacts tenants whose active lease ends in the
+// next 120 days and suggests available properties of the same type, in the
+// same state, that have at least 2 of the same features as their current home.
+MATCH (t:Tenant)-[:SIGNED]->(l:Lease {status: 'active'})-[:FOR_PROPERTY]->(home:Property)
+WHERE l.endDate >= date('2026-10-01')
+  AND l.endDate <= date('2026-10-01') + duration({days: 120})
+MATCH (home)-[:LOCATED_IN]->(s1:Suburb)
+MATCH (home)-[:HAS_FEATURE]->(f:Feature)<-[:HAS_FEATURE]-(other:Property)-[:LOCATED_IN]->(s2:Suburb)
+WHERE other.status = 'available'
+  AND other <> home
+  AND other.propertyType = home.propertyType
+  AND s1.state = s2.state
+WITH t, l, home, other, s2, collect(f.name) AS sameFeatures
+WHERE size(sameFeatures) >= 2
+RETURN t.firstName + ' ' + t.lastName AS tenant,
+       l.endDate AS leaseEnds,
+       home.propertyId AS currentHome,
+       other.propertyId AS suggested,
+       other.address + ', ' + s2.name AS suggestedAddress,
+       size(sameFeatures) AS numberOfSameFeatures,
+       sameFeatures
+ORDER BY tenant, numberOfSameFeatures DESC;

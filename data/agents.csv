@@ -1,0 +1,9 @@
+AgentID,FirstName,LastName,Email,Phone,LicenseNumber
+AG001,Emma,Wilson,emma.w@realty.com,0455100001,LIC-NSW-001
+AG002,Liam,Brown,liam.b@realty.com,0455100002,LIC-NSW-002
+AG003,Olivia,Martinez,olivia.m@realty.com,0455100003,LIC-VIC-001
+AG004,Noah,Johnson,noah.j@realty.com,0455100004,LIC-QLD-001
+AG005,Ava,Singh,ava.s@realty.com,0455100005,LIC-NSW-003
+AG006,Ethan,Chen,ethan.c@realty.com,0455100006,LIC-NSW-004
+AG007,Mia,Robinson,mia.r@realty.com,0455100007,LIC-VIC-002
+AG008,Jack,Kelly,jack.k@realty.com,0455100008,LIC-QLD-002

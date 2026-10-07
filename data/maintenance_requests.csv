@@ -1,0 +1,69 @@
+RequestID,PropertyID,TenantID,RequestDate,Description,Priority,Status,ResolvedDate
+MR000001,PROP001,TEN001,2026-02-10,Leaking kitchen tap needs urgent fixing,medium,resolved,2026-02-14
+MR000002,PROP001,TEN001,2026-05-20,Air conditioning unit not working,high,in_progress,
+MR000003,PROP004,,2026-04-01,Roof damage from storm — structural assessment needed,high,pending,
+MR000004,PROP005,TEN003,2026-03-15,Broken window latch in master bedroom,low,resolved,2026-03-20
+MR000005,PROP007,TEN004,2026-06-01,Blocked drain in bathroom,medium,pending,
+MR000006,PROP007,TEN004,2026-07-10,Front door lock faulty — security concern,high,pending,
+MR000007,PROP008,TEN050,2026-08-17,Carpet damage in hallway,low,resolved,2026-08-19
+MR000008,PROP008,,2025-11-25,Blocked toilet,high,resolved,2025-11-29
+MR000009,PROP009,TEN049,2025-08-17,Power outage in kitchen circuit,high,resolved,2025-08-21
+MR000010,PROP009,TEN049,2025-12-31,Smoke alarm beeping / battery fault,high,resolved,2026-01-01
+MR000011,PROP011,TEN048,2026-01-23,Office lighting flickering,low,resolved,2026-02-01
+MR000012,PROP011,TEN048,2026-09-17,Window will not close properly,medium,pending,
+MR000013,PROP012,TEN008,2026-05-29,Lift out of service in building,high,resolved,2026-06-11
+MR000014,PROP012,TEN008,2025-07-17,Carpet damage in hallway,low,resolved,2025-07-29
+MR000015,PROP013,TEN042,2026-05-31,Office lighting flickering,low,resolved,2026-06-06
+MR000016,PROP014,TEN007,2026-02-13,Pest infestation (cockroaches),medium,resolved,2026-02-22
+MR000017,PROP015,TEN033,2025-05-28,Hot water system not heating,high,resolved,2025-06-10
+MR000018,PROP015,TEN033,2026-03-27,Oven element not working,medium,resolved,2026-04-10
+MR000019,PROP015,TEN014,2026-08-19,Air conditioning not cooling,high,resolved,2026-08-27
+MR000020,PROP016,,2025-10-24,Window will not close properly,medium,resolved,2025-10-28
+MR000021,PROP016,TEN045,2026-08-17,Mould in bathroom ceiling,medium,resolved,2026-08-31
+MR000022,PROP017,TEN037,2026-09-13,Pest infestation (cockroaches),medium,pending,
+MR000023,PROP018,TEN027,2025-04-16,Mould in bathroom ceiling,medium,resolved,2025-04-23
+MR000024,PROP018,TEN020,2026-08-23,Oven element not working,medium,resolved,2026-09-06
+MR000025,PROP018,TEN027,2025-08-21,Air conditioning not cooling,high,resolved,2025-09-03
+MR000026,PROP019,TEN029,2025-03-22,Fence panel damaged by wind,low,resolved,2025-03-23
+MR000027,PROP019,TEN019,2026-09-23,Cracked tiles in laundry,low,in_progress,
+MR000028,PROP020,TEN044,2026-06-10,Power outage in kitchen circuit,high,resolved,2026-06-15
+MR000029,PROP020,TEN049,2025-02-16,Cracked tiles in laundry,low,resolved,2025-02-28
+MR000030,PROP020,TEN005,2025-11-29,Blocked toilet,high,resolved,2025-12-01
+MR000031,PROP021,,2025-04-29,Carpet damage in hallway,low,resolved,2025-05-06
+MR000032,PROP021,,2025-09-14,Mould in bathroom ceiling,medium,resolved,2025-09-16
+MR000033,PROP022,TEN035,2025-09-28,Intercom not working,medium,resolved,2025-10-11
+MR000034,PROP022,TEN041,2026-03-08,Pest infestation (cockroaches),medium,resolved,2026-03-11
+MR000035,PROP022,TEN035,2025-11-08,Cracked tiles in laundry,low,resolved,2025-11-10
+MR000036,PROP023,TEN038,2025-08-20,Hot water system not heating,high,resolved,2025-09-01
+MR000037,PROP023,TEN038,2026-09-24,Smoke alarm beeping / battery fault,high,pending,
+MR000038,PROP024,TEN034,2026-09-17,Broken garage door remote,low,pending,
+MR000039,PROP024,TEN042,2025-06-23,Leaking shower head,low,resolved,2025-07-07
+MR000040,PROP025,TEN043,2026-04-15,Window will not close properly,medium,resolved,2026-04-18
+MR000041,PROP025,,2026-08-22,Hot water system not heating,high,resolved,2026-08-25
+MR000042,PROP025,TEN043,2025-10-13,Broken garage door remote,low,resolved,2025-10-21
+MR000043,PROP026,TEN011,2025-04-15,Mould in bathroom ceiling,medium,resolved,2025-04-23
+MR000044,PROP026,TEN011,2025-11-28,Smoke alarm beeping / battery fault,high,resolved,2025-12-03
+MR000045,PROP026,TEN021,2026-07-20,Smoke alarm beeping / battery fault,high,resolved,2026-07-24
+MR000046,PROP027,TEN002,2026-08-11,Mould in bathroom ceiling,medium,resolved,2026-08-24
+MR000047,PROP027,TEN012,2026-04-23,Broken garage door remote,low,resolved,2026-04-25
+MR000048,PROP028,TEN017,2026-03-15,Office lighting flickering,low,resolved,2026-03-20
+MR000049,PROP028,TEN017,2025-09-20,Office lighting flickering,low,resolved,2025-09-21
+MR000050,PROP030,TEN016,2026-05-28,Window will not close properly,medium,resolved,2026-06-11
+MR000051,PROP030,TEN024,2025-03-01,Water stain on bedroom wall,medium,resolved,2025-03-06
+MR000052,PROP031,TEN013,2025-10-23,Air conditioning not cooling,high,resolved,2025-10-29
+MR000053,PROP031,,2025-04-10,Intercom not working,medium,resolved,2025-04-15
+MR000054,PROP034,,2026-07-07,Water stain on bedroom wall,medium,resolved,2026-07-18
+MR000055,PROP034,,2026-09-08,Water stain on bedroom wall,medium,in_progress,
+MR000056,PROP035,TEN010,2026-08-22,Smoke alarm beeping / battery fault,high,resolved,2026-08-25
+MR000057,PROP036,TEN027,2026-01-30,Blocked toilet,high,resolved,2026-02-13
+MR000058,PROP037,TEN046,2026-03-31,Pest infestation (cockroaches),medium,resolved,2026-04-02
+MR000059,PROP037,TEN046,2026-08-21,Leaking shower head,low,resolved,2026-08-31
+MR000060,PROP038,TEN026,2025-02-09,Broken garage door remote,low,resolved,2025-02-10
+MR000061,PROP038,TEN030,2026-07-21,Smoke alarm beeping / battery fault,high,resolved,2026-08-04
+MR000062,PROP039,TEN009,2025-04-10,Carpet damage in hallway,low,resolved,2025-04-17
+MR000063,PROP040,TEN009,2026-09-24,Office lighting flickering,low,pending,
+MR000064,PROP040,TEN009,2026-06-20,Blocked toilet,high,resolved,2026-06-22
+MR000065,PROP002,,2026-09-22,Power outage in kitchen circuit,high,pending,
+MR000066,PROP003,TEN032,2026-02-25,Cracked tiles in laundry,low,resolved,2026-03-09
+MR000067,PROP005,TEN039,2025-09-27,Air conditioning not cooling,high,resolved,2025-10-01
+MR000068,PROP006,,2026-04-25,Smoke alarm beeping / battery fault,high,resolved,2026-05-07

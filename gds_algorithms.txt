@@ -1,0 +1,102 @@
+// PRT563 Assessment 4 - Sydney Group 6
+// Task 4 (centrality) and Task 5 (similarity) using the Graph Data Science library
+// Run each statement one at a time in Neo4j Browser after running import.txt.
+// Check that GDS is installed:  RETURN gds.version();
+
+
+// ================= TASK 4: CENTRALITY =================
+// Question: which agents, owners, properties and tenants are the most
+// important (most connected) in our business network?
+
+// Step 1: make an in-memory copy of the graph with tenants, properties,
+// agents and owners. The links are treated as two-way (UNDIRECTED).
+CALL gds.graph.project(
+  'agencyNetwork',
+  ['Tenant', 'Property', 'Agent', 'Owner'],
+  {
+    RENTED:  {orientation: 'UNDIRECTED'},
+    MANAGES: {orientation: 'UNDIRECTED'},
+    OWNS:    {orientation: 'UNDIRECTED'}
+  }
+);
+
+// Step 2: Degree centrality - who has the most direct connections
+CALL gds.degree.stream('agencyNetwork')
+YIELD nodeId, score
+RETURN labels(gds.util.asNode(nodeId))[0] AS type,
+       coalesce(gds.util.asNode(nodeId).name,
+                gds.util.asNode(nodeId).firstName + ' ' + gds.util.asNode(nodeId).lastName,
+                gds.util.asNode(nodeId).address) AS name,
+       score AS degree
+ORDER BY degree DESC
+LIMIT 10;
+
+// Step 3: PageRank - who is connected to other important nodes
+CALL gds.pageRank.stream('agencyNetwork')
+YIELD nodeId, score
+RETURN labels(gds.util.asNode(nodeId))[0] AS type,
+       coalesce(gds.util.asNode(nodeId).name,
+                gds.util.asNode(nodeId).firstName + ' ' + gds.util.asNode(nodeId).lastName,
+                gds.util.asNode(nodeId).address) AS name,
+       round(score, 3) AS pageRank
+ORDER BY pageRank DESC
+LIMIT 10;
+
+// Step 4: Betweenness - who acts as a "bridge" between different parts
+CALL gds.betweenness.stream('agencyNetwork')
+YIELD nodeId, score
+RETURN labels(gds.util.asNode(nodeId))[0] AS type,
+       coalesce(gds.util.asNode(nodeId).name,
+                gds.util.asNode(nodeId).firstName + ' ' + gds.util.asNode(nodeId).lastName,
+                gds.util.asNode(nodeId).address) AS name,
+       round(score, 1) AS betweenness
+ORDER BY betweenness DESC
+LIMIT 10;
+
+// Step 5: remove the in-memory graph
+CALL gds.graph.drop('agencyNetwork');
+
+
+// ================= TASK 5: SIMILARITY =================
+// Question: when a client wants a property that is already leased,
+// which available properties are most similar (same features)?
+
+// Step 1: in-memory graph of properties and their features
+CALL gds.graph.project('propertyFeatures', ['Property', 'Feature'], 'HAS_FEATURE');
+
+// Step 2: Node Similarity with Jaccard (default) - top 3 similar properties each
+CALL gds.nodeSimilarity.stream('propertyFeatures', {topK: 3})
+YIELD node1, node2, similarity
+RETURN gds.util.asNode(node1).propertyId AS property,
+       gds.util.asNode(node2).propertyId AS similarProperty,
+       round(similarity, 3) AS jaccard
+ORDER BY jaccard DESC, property
+LIMIT 15;
+
+// Step 3: try the Overlap metric to compare with Jaccard
+CALL gds.nodeSimilarity.stream('propertyFeatures', {topK: 3, similarityMetric: 'OVERLAP'})
+YIELD node1, node2, similarity
+RETURN gds.util.asNode(node1).propertyId AS property,
+       gds.util.asNode(node2).propertyId AS similarProperty,
+       round(similarity, 3) AS overlap
+ORDER BY overlap DESC, property
+LIMIT 15;
+
+// Step 4: save the Jaccard results as SIMILAR_TO relationships in the database
+CALL gds.nodeSimilarity.write('propertyFeatures', {
+  topK: 3, writeRelationshipType: 'SIMILAR_TO', writeProperty: 'score'
+});
+
+// Step 5: recommendation - for each leased property, show similar
+// AVAILABLE properties in the same state
+MATCH (p:Property {status: 'leased'})-[s:SIMILAR_TO]->(other:Property {status: 'available'})
+MATCH (p)-[:LOCATED_IN]->(s1:Suburb), (other)-[:LOCATED_IN]->(s2:Suburb)
+WHERE s1.state = s2.state
+RETURN p.propertyId AS leasedProperty,
+       other.propertyId AS recommend,
+       other.address + ', ' + s2.name AS address,
+       round(s.score, 3) AS similarity
+ORDER BY similarity DESC;
+
+// Step 6: remove the in-memory graph
+CALL gds.graph.drop('propertyFeatures');

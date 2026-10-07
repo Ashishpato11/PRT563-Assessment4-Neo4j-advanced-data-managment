@@ -1,0 +1,16 @@
+FeatureID,FeatureName,Category
+FEAT01,Air Conditioning,comfort
+FEAT02,Off-street Parking,access
+FEAT03,Balcony,outdoor
+FEAT04,Swimming Pool,amenity
+FEAT05,Gym,amenity
+FEAT06,Pet Friendly,policy
+FEAT07,Furnished,comfort
+FEAT08,Dishwasher,comfort
+FEAT09,Built-in Wardrobes,comfort
+FEAT10,Near Train Station,access
+FEAT11,Ocean View,outdoor
+FEAT12,Secure Entry,security
+FEAT13,Loading Dock,commercial
+FEAT14,Reception Area,commercial
+FEAT15,Fibre Internet,access

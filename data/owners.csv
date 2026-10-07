@@ -1,0 +1,16 @@
+OwnerID,OwnerName,OwnerEmail,OwnerPhone,OwnerAddress,OwnershipType
+OWN001,Michael Thompson,michael.t@email.com,0411111111,"12 Harbour St, Sydney NSW",individual
+OWN002,Sunrise Properties,contact@sunriseprop.com,0299999999,"88 George St, Sydney NSW",company
+OWN003,Sarah Nguyen,sarah.n@email.com,0422222222,"45 Park Ave, Melbourne VIC",individual
+OWN004,Blue Sky Realty,info@bluesky.com.au,0388888888,"200 Collins St, Melbourne VIC",company
+OWN005,James Patel,james.p@email.com,0433333333,"7 Beach Rd, Gold Coast QLD",individual
+OWN006,Harbourview Investments,admin@harbourview.com.au,0291234567,"1 Macquarie Pl, Sydney NSW",company
+OWN007,Daniel Kim,daniel.k@email.com,0444444444,"19 Pitt St, Sydney NSW",individual
+OWN008,Emily Carter,emily.c@email.com,0455555555,"8 Albert Rd, Melbourne VIC",individual
+OWN009,Southern Cross Holdings,hello@southerncross.com.au,0390001111,"350 Bourke St, Melbourne VIC",company
+OWN010,Rajesh Gupta,rajesh.g@email.com,0466666666,"42 Church St, Parramatta NSW",individual
+OWN011,Coastal Living Pty Ltd,info@coastalliving.com.au,0755502222,"12 Cavill Ave, Surfers Paradise QLD",company
+OWN012,Grace Lee,grace.l@email.com,0477777777,"5 Ann St, Brisbane QLD",individual
+OWN013,Metro Urban Property Group,contact@metrourban.com.au,0292223333,"100 Miller St, North Sydney NSW",company
+OWN014,William Scott,william.s@email.com,0488888888,"27 Chapel St, Richmond VIC",individual
+OWN015,Fatima Hassan,fatima.h@email.com,0499999999,"63 Forest Rd, Hurstville NSW",individual

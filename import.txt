@@ -1,0 +1,149 @@
+// PRT563 Assessment 4 - Sydney Group 6
+// Task 2: Import the relational data (CSV files) into Neo4j
+//
+// Before running: copy all CSV files from the data folder into the
+// Neo4j "import" folder. Then run this file in Neo4j Browser.
+
+
+// 1. Delete old data (so the script can be run again)
+MATCH (n) DETACH DELETE n;
+
+
+// 2. Constraints (same as primary keys in SQL)
+CREATE CONSTRAINT owner_id IF NOT EXISTS FOR (o:Owner) REQUIRE o.ownerId IS UNIQUE;
+CREATE CONSTRAINT agent_id IF NOT EXISTS FOR (a:Agent) REQUIRE a.agentId IS UNIQUE;
+CREATE CONSTRAINT property_id IF NOT EXISTS FOR (p:Property) REQUIRE p.propertyId IS UNIQUE;
+CREATE CONSTRAINT tenant_id IF NOT EXISTS FOR (t:Tenant) REQUIRE t.tenantId IS UNIQUE;
+CREATE CONSTRAINT lease_id IF NOT EXISTS FOR (l:Lease) REQUIRE l.leaseId IS UNIQUE;
+CREATE CONSTRAINT payment_id IF NOT EXISTS FOR (pay:Payment) REQUIRE pay.paymentId IS UNIQUE;
+CREATE CONSTRAINT request_id IF NOT EXISTS FOR (m:MaintenanceRequest) REQUIRE m.requestId IS UNIQUE;
+CREATE CONSTRAINT feature_id IF NOT EXISTS FOR (f:Feature) REQUIRE f.featureId IS UNIQUE;
+CREATE CONSTRAINT suburb_name IF NOT EXISTS FOR (s:Suburb) REQUIRE s.name IS UNIQUE;
+
+
+// 3. Indexes (for the columns we search on in the queries)
+CREATE INDEX property_status IF NOT EXISTS FOR (p:Property) ON (p.status);
+CREATE INDEX lease_status IF NOT EXISTS FOR (l:Lease) ON (l.status);
+CREATE INDEX payment_status IF NOT EXISTS FOR (pay:Payment) ON (pay.status);
+CREATE INDEX request_status IF NOT EXISTS FOR (m:MaintenanceRequest) ON (m.status);
+
+
+// 4. Owners (OWNER table)
+LOAD CSV WITH HEADERS FROM 'file:///owners.csv' AS row
+CREATE (o:Owner {ownerId: row.OwnerID, name: row.OwnerName, email: row.OwnerEmail,
+                 phone: row.OwnerPhone, address: row.OwnerAddress, ownershipType: row.OwnershipType});
+
+// Individual owners get an extra label :Individual (INDIVIDUAL_OWNER table)
+LOAD CSV WITH HEADERS FROM 'file:///individual_owners.csv' AS row
+MATCH (o:Owner {ownerId: row.OwnerID})
+SET o:Individual, o.dob = date(row.DOB), o.nationalId = row.NationalID;
+
+// Company owners get an extra label :Company (COMPANY_OWNER table)
+LOAD CSV WITH HEADERS FROM 'file:///company_owners.csv' AS row
+MATCH (o:Owner {ownerId: row.OwnerID})
+SET o:Company, o.abn = row.ABN, o.contactPerson = row.ContactPerson;
+
+
+// 5. Agents (AGENT table)
+LOAD CSV WITH HEADERS FROM 'file:///agents.csv' AS row
+CREATE (a:Agent {agentId: row.AgentID, firstName: row.FirstName, lastName: row.LastName,
+                 email: row.Email, phone: row.Phone, licenseNumber: row.LicenseNumber});
+
+
+// 6. Properties (PROPERTY table) + Suburb nodes
+LOAD CSV WITH HEADERS FROM 'file:///properties.csv' AS row
+CREATE (p:Property {propertyId: row.PropertyID, address: row.Address, postcode: row.Postcode,
+                    propertyType: row.PropertyType, sizeM2: toFloat(row.SizeM2),
+                    bedrooms: toInteger(row.Bedrooms), bathrooms: toInteger(row.Bathrooms),
+                    status: row.Status})
+MERGE (s:Suburb {name: row.Suburb})
+  ON CREATE SET s.state = row.State
+CREATE (p)-[:LOCATED_IN]->(s);
+
+// Owner OWNS Property
+LOAD CSV WITH HEADERS FROM 'file:///properties.csv' AS row
+MATCH (o:Owner {ownerId: row.OwnerID})
+MATCH (p:Property {propertyId: row.PropertyID})
+CREATE (o)-[:OWNS]->(p);
+
+// Agent MANAGES Property (some properties have no agent)
+LOAD CSV WITH HEADERS FROM 'file:///properties.csv' AS row
+WITH row WHERE row.AgentID IS NOT NULL AND row.AgentID <> ''
+MATCH (a:Agent {agentId: row.AgentID})
+MATCH (p:Property {propertyId: row.PropertyID})
+CREATE (a)-[:MANAGES]->(p);
+
+
+// 7. Features (new table) and Property HAS_FEATURE Feature
+LOAD CSV WITH HEADERS FROM 'file:///features.csv' AS row
+CREATE (f:Feature {featureId: row.FeatureID, name: row.FeatureName, category: row.Category});
+
+LOAD CSV WITH HEADERS FROM 'file:///property_features.csv' AS row
+MATCH (p:Property {propertyId: row.PropertyID})
+MATCH (f:Feature {featureId: row.FeatureID})
+CREATE (p)-[:HAS_FEATURE]->(f);
+
+
+// 8. Tenants (TENANT table)
+LOAD CSV WITH HEADERS FROM 'file:///tenants.csv' AS row
+CREATE (t:Tenant {tenantId: row.TenantID, firstName: row.FirstName, lastName: row.LastName,
+                  email: row.Email, phone: row.Phone, dob: date(row.DOB),
+                  emergencyContact: row.EmergencyContact});
+
+
+// 9. Leases (LEASE_AGREEMENT table)
+//    Tenant SIGNED Lease, Lease FOR_PROPERTY Property
+LOAD CSV WITH HEADERS FROM 'file:///lease_agreements.csv' AS row
+MATCH (t:Tenant {tenantId: row.TenantID})
+MATCH (p:Property {propertyId: row.PropertyID})
+CREATE (l:Lease {leaseId: row.LeaseID, startDate: date(row.StartDate), endDate: date(row.EndDate),
+                 weeklyRent: toFloat(row.WeeklyRent), bondAmount: toFloat(row.BondAmount),
+                 status: row.LeaseStatus})
+CREATE (t)-[:SIGNED]->(l)
+CREATE (l)-[:FOR_PROPERTY]->(p);
+
+
+// 10. Payments (RENTAL_PAYMENT table)   Lease HAS_PAYMENT Payment
+LOAD CSV WITH HEADERS FROM 'file:///rental_payments.csv' AS row
+MATCH (l:Lease {leaseId: row.LeaseID})
+CREATE (pay:Payment {paymentId: row.PaymentID, paymentDate: date(row.PaymentDate),
+                     amount: toFloat(row.Amount), method: row.PaymentMethod, status: row.PaymentStatus})
+CREATE (l)-[:HAS_PAYMENT]->(pay);
+
+
+// 11. Maintenance requests (MAINTENANCE_REQUEST table)
+//     Property HAS_REQUEST MaintenanceRequest
+LOAD CSV WITH HEADERS FROM 'file:///maintenance_requests.csv' AS row
+MATCH (p:Property {propertyId: row.PropertyID})
+CREATE (m:MaintenanceRequest {requestId: row.RequestID, requestDate: date(row.RequestDate),
+                              description: row.Description, priority: row.Priority,
+                              status: row.Status})
+SET m.resolvedDate = CASE WHEN row.ResolvedDate <> '' THEN date(row.ResolvedDate) ELSE null END
+CREATE (p)-[:HAS_REQUEST]->(m);
+
+// Tenant RAISED MaintenanceRequest (some requests have no tenant)
+LOAD CSV WITH HEADERS FROM 'file:///maintenance_requests.csv' AS row
+WITH row WHERE row.TenantID IS NOT NULL AND row.TenantID <> ''
+MATCH (t:Tenant {tenantId: row.TenantID})
+MATCH (m:MaintenanceRequest {requestId: row.RequestID})
+CREATE (t)-[:RAISED]->(m);
+
+
+// 12. Shortcut relationship Tenant RENTED Property
+//     (one link for each tenant and property they have rented - used in Task 4)
+MATCH (t:Tenant)-[:SIGNED]->(:Lease)-[:FOR_PROPERTY]->(p:Property)
+MERGE (t)-[:RENTED]->(p);
+
+
+// 13. Check the import
+// Expected nodes: Owner 15, Agent 8, Property 40, Suburb 18, Feature 15,
+// Tenant 50, Lease 91, Payment 912, MaintenanceRequest 68
+MATCH (n)
+RETURN labels(n)[0] AS label, count(*) AS total
+ORDER BY label;
+
+// Expected relationships: OWNS 40, MANAGES 37, LOCATED_IN 40, HAS_FEATURE 205,
+// SIGNED 91, FOR_PROPERTY 91, HAS_PAYMENT 912, HAS_REQUEST 68, RAISED 57, RENTED 88
+MATCH ()-[r]->()
+RETURN type(r) AS relationship, count(*) AS total
+ORDER BY relationship;
